@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Jogador {
     private String nome;
-    public peça peças[16]; //cada jogador tem 16 pecas
+    public Peao peças[]; //cada jogador tem 16 pecas
 
     public String peçasCapturadas;
 
@@ -10,14 +10,18 @@ public class Jogador {
 
 
     public Jogador(String nome) { //cosntrutor
+
         this.nome = nome;
+        this.peças = new Peao[16];
     }
 
     public String informaJogada(){
         System.out.println("Digite a posição da peça que deseja mover: \n");
         Scanner sc = new Scanner(System.in);
-        String posicao = sc.nextLine();
-        return posicao;
+        String posicaoO = sc.nextLine();
+        System.out.println("Digite a posição da peça que deseja mover: \n");
+        String posicaoD = sc.nextLine();
+        return posicaoO + posicaoD;
     }
 
     public String pecasCapturadas(){
@@ -30,10 +34,6 @@ public class Jogador {
         return nome;
     }
 
-    public peça[] getPeças() {
-        return peças;
-    }
-
     public String getPeçasCapturadas() {
         return peçasCapturadas;
     }
@@ -42,9 +42,6 @@ public class Jogador {
         this.nome = nome;
     }
 
-    public void setPeças(peça[] peças) {
-        this.peças = peças;
-    }
 
     public void setPeçasCapturadas(String peçasCapturadas) {
         this.peçasCapturadas = peçasCapturadas;
