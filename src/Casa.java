@@ -15,6 +15,9 @@ public class Casa {
     public static String transformNumeroColuna(int coluna){
         return String.valueOf(letrasColuna.charAt(coluna -1));
     }
+    public static int tranformaColunaNumero(String coluna){
+       return Casa.letrasColuna.indexOf(coluna) + 1;
+    }
     public String getCor() {
         return cor;
     }

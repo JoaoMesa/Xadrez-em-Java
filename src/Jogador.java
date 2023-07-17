@@ -13,13 +13,14 @@ public class Jogador {
 
         this.nome = nome;
         this.peças = new Peao[16];
+        peçasCapturadas = "";
     }
 
     public String informaJogada(){
-        System.out.println("Digite a posição da peça que deseja mover: \n");
+        System.out.println( "\n" + this.nome + ", digite a posição da peça que deseja mover: \n");
         Scanner sc = new Scanner(System.in);
         String posicaoO = sc.nextLine();
-        System.out.println("Digite a posição da peça que deseja mover: \n");
+        System.out.println("\n" + this.nome + ", digite para onde a peça deve mover: \n");
         String posicaoD = sc.nextLine();
         return posicaoO + posicaoD;
     }
@@ -27,6 +28,10 @@ public class Jogador {
     public String pecasCapturadas(){
         System.out.println("Peças capturadas: \n");
         return peçasCapturadas;
+    }
+
+    public void capturaPeca(String peca){
+        this.peçasCapturadas+=peca;
     }
 
 

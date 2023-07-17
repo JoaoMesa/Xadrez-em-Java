@@ -6,31 +6,35 @@ public class Peao {
     public Peao(String cor, Casa casa) {
         this.cor = cor;
         this.casa = casa;
-        if (cor.equals("branco")) {
-            this.simbolo = "♙";
-        } else {
+        if (cor.equals("white")) {
             this.simbolo = "♟";
+        } else {
+            this.simbolo = "♙";
         }
     }
 
-    public boolean movimentoValido(String linhaO, String colunaO, String linhaD, String colunaD){
+    public boolean movimentoValido(String linhaO, String colunaO, String linhaD, String colunaD, boolean destinoOcupado){
 
         int linhaOrigem = Integer.parseInt(linhaO);
-        int colunaOrigem = Integer.parseInt(colunaO);
+        int colunaOrigem = Casa.tranformaColunaNumero(colunaO);
         int linhaDestino = Integer.parseInt(linhaD);
-        int colunaDestino = Integer.parseInt(colunaD);
+        int colunaDestino = Casa.tranformaColunaNumero(colunaD);
 
-        if(this.cor.equals("branco")){
+        if(this.cor.equals("white")){
             if(linhaOrigem == 2){
                 if(linhaDestino == linhaOrigem + 1 || linhaDestino == linhaOrigem + 2){
-                    if(colunaDestino == colunaOrigem){
+                    if(colunaDestino == colunaOrigem && !destinoOcupado){
                         return true;
                     }
                 }
             }
             else{
                 if(linhaDestino == linhaOrigem + 1){
-                    if(colunaDestino == colunaOrigem){
+                    System.out.println(destinoOcupado);
+                    if(colunaDestino == colunaOrigem && !destinoOcupado){
+                        return true;
+                    }
+                    else if((colunaDestino - 1 == colunaOrigem || colunaDestino + 1 == colunaOrigem) && destinoOcupado){
                         return true;
                     }
                 }
@@ -39,19 +43,24 @@ public class Peao {
         else{  //preto
             if(linhaOrigem == 7){
                 if(linhaDestino == linhaOrigem - 1 || linhaDestino == linhaOrigem - 2){
-                    if(colunaDestino == colunaOrigem){
+                    if(colunaDestino == colunaOrigem && !destinoOcupado){
                         return true;
                     }
                 }
             }
             else{
                 if(linhaDestino == linhaOrigem - 1){
-                    if(colunaDestino == colunaOrigem){
+                    System.out.println(destinoOcupado);
+                    if(colunaDestino == colunaOrigem && !destinoOcupado){
                         return true;
+                    }else if((colunaDestino - 1 == colunaOrigem || colunaDestino + 1 == colunaOrigem) && destinoOcupado){
+                        return true;
+                        }
                     }
+
                 }
             }
-        }
+
         return false;
 
     }
@@ -60,9 +69,9 @@ public class Peao {
 
         Caminho caminho = new Caminho(linhaO,colunaO,linhaD,colunaD);
         int linhaOrigem = Integer.parseInt(linhaO);
-        int colunaOrigem = Integer.parseInt(colunaO);
+        int colunaOrigem = Casa.tranformaColunaNumero(colunaO);
         int linhaDestino = Integer.parseInt(linhaD);
-        int colunaDestino = Integer.parseInt(colunaD);
+        int colunaDestino = Casa.tranformaColunaNumero(colunaD);
         String caminhoFinal = "";
 
         if (colunaDestino!=colunaOrigem){

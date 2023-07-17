@@ -3,23 +3,26 @@ public class Caminho {
     Casa casaInicial, casaFinal;
 
     Caminho (String linhaO, String colunaO, String linhaD, String colunaD){
-        casaInicial.setLinha(linhaO);
-        casaInicial.setColuna(colunaO);
-        casaFinal.setLinha(linhaD);
-        casaFinal.setColuna(colunaD);
-
-        this.casaInicial = casaInicial;
-        this.casaFinal = casaFinal;
+        casaInicial = new Casa( "null", linhaO, colunaO);
+        casaFinal = new Casa( "null", linhaD, colunaD);;
     }
 
-    public boolean  estaLivre(){
+    public boolean  estaLivre(String caminho,Tabuleiro tabuleiro ){
+        Peao peca;
+        boolean flag=true;
 
-        if(casaFinal.temPeca()){
-            return false;
+        for (int i=2;i<caminho.length()-2;i+=2){
+            String coluna,linha;
+            coluna= String.valueOf(caminho.charAt(i));
+            linha= String.valueOf(caminho.charAt(i+1));
+            peca=tabuleiro.getPeca(linha,coluna);
+            if(peca!=null){
+                flag=false;
+            }
         }
-        else{
-            return true;
-        }
+        return flag;
+
+
 
     }
 
