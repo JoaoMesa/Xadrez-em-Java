@@ -1,7 +1,7 @@
 public class Tabuleiro {
     private Casa[][] tabuleiro = new Casa[9][9];
 
-    public Tabuleiro() {
+    public Tabuleiro() { //monta o tabuleiro
         for (int i = 1; i < 9; i++) {
             for(int j = 1; j < 9; j++){
                 if((i+j)%2==0){
@@ -14,7 +14,7 @@ public class Tabuleiro {
             }
         }
 
-        for(int i = 1; i < 9; i++){
+        for(int i = 1; i < 9; i++){ //coloca as peças
             tabuleiro[2][i].colocaPeca(new Peao("white", tabuleiro[2][i]));
             tabuleiro[7][i].colocaPeca(new Peao("black", tabuleiro[7][i]));
         }
@@ -40,8 +40,8 @@ public class Tabuleiro {
 
     public Peao getPeca(String linha, String coluna){
         Integer linha2,coluna2;
-        linha2 = Integer.parseInt(linha);
-        coluna2=Casa.tranformaColunaNumero(coluna);
+        linha2 = Integer.parseInt(linha);//transforma a string em int
+        coluna2=Casa.tranformaColunaNumero(coluna); //transforma a string em int
 
         if (tabuleiro[linha2][coluna2].temPeca()){
             Peao peaos= tabuleiro[linha2][coluna2].getPeca();
@@ -54,8 +54,8 @@ public class Tabuleiro {
 
     public Peao tirarPeca(String linha, String coluna){
         Integer linha2,coluna2;
-       linha2 = Integer.parseInt(linha);
-       coluna2=Casa.tranformaColunaNumero(coluna);
+       linha2 = Integer.parseInt(linha);//transforma a string em int
+       coluna2=Casa.tranformaColunaNumero(coluna);////transforma a string em int
 
         if (tabuleiro[linha2][coluna2].temPeca()){
             Peao peaos= tabuleiro[linha2][coluna2].getPeca();
@@ -72,11 +72,11 @@ public class Tabuleiro {
         linha2 = Integer.parseInt(linha);
         coluna2=Casa.tranformaColunaNumero(coluna);
 
-        if (!tabuleiro[linha2][coluna2].temPeca()){
+        if (!tabuleiro[linha2][coluna2].temPeca()){ //se não tiver peça na casa
             tabuleiro[linha2][coluna2].colocaPeca(peca);
             return null;
         }
-        else {
+        else { //se tiver peça na casa, vai capturar a peça
             Peao pecaCapturada = tabuleiro[linha2][coluna2].getPeca();
             tabuleiro[linha2][coluna2].tiraPeca();
             tabuleiro[linha2][coluna2].colocaPeca(peca);

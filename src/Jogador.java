@@ -9,7 +9,7 @@ public class Jogador {
     public String cor;
 
 
-    public Jogador(String nome) { //cosntrutor
+    public Jogador(String nome) { //construtor
 
         this.nome = nome;
         this.peças = new Peao[16];
@@ -27,7 +27,7 @@ public class Jogador {
 
     public String pecasCapturadas(){
         System.out.println("Peças capturadas: \n");
-        return peçasCapturadas;
+        return peçasCapturadas; //retorna as peças capturadas
     }
 
     public void capturaPeca(String peca){
