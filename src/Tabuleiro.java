@@ -14,19 +14,16 @@ public class Tabuleiro {
             }
         }
 
-        for(int i = 1; i < 9; i++){ //coloca as peças
-            tabuleiro[2][i].colocaPeca(new Peao("white", tabuleiro[2][i]));
-            tabuleiro[7][i].colocaPeca(new Peao("black", tabuleiro[7][i]));
-        }
-
     }
 
     public void imprimirTabuleiro() {
         for (int i = 1; i < 9; i++) {
             System.out.println();
+            System.out.print(" " + i);
+
             for (int j = 1; j < 9; j++) {
                 if(tabuleiro[i][j].temPeca()){
-                    System.out.print(" "+ tabuleiro[i][j].getPeca().getSimbolo() + " ");
+                    System.out.print(" "+ tabuleiro[i][j].getPeca().desenho() + " ");
                 }
                 else if(tabuleiro[i][j].getCor().equals("white")){
                     System.out.print(" ⛊ ");
@@ -36,6 +33,8 @@ public class Tabuleiro {
                 }
             }
         }
+        System.out.println("\n   A   B   C  D   E  F   G   H");
+
     }
 
     public Peao getPeca(String linha, String coluna){
@@ -81,6 +80,26 @@ public class Tabuleiro {
             tabuleiro[linha2][coluna2].tiraPeca();
             tabuleiro[linha2][coluna2].colocaPeca(peca);
             return pecaCapturada;
+        }
+    }
+
+    public Casa getCasa(String linha, String coluna){
+        Integer linha2,coluna2;
+        linha2 = Integer.parseInt(linha);//transforma a string em int
+        coluna2=Casa.tranformaColunaNumero(coluna); //transforma a string em int
+
+        return tabuleiro[linha2][coluna2];
+    }
+
+    public boolean noLimite(String linha,  String coluna){
+        int linha2,coluna2;
+        linha2 = Integer.parseInt(linha);
+        coluna2=Casa.tranformaColunaNumero(coluna);
+        if(linha2>0 && linha2<9 && coluna2>0 && coluna2<9){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 

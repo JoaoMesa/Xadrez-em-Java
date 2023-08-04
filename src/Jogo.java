@@ -5,6 +5,9 @@ public class Jogo {
     private String registro;
     private Jogada jogadas[];
 
+    private Peao pecasBrancas[];
+    private Peao pecasPretas[];
+
 
 
     public Jogo() {
@@ -20,7 +23,23 @@ public class Jogo {
 
         this.jogador1.cor = "white";
         this.jogador2.cor = "black";
-        iniciarJogo();
+
+
+        this.pecasBrancas = new Peao[16];
+        for(int i = 0; i < 8; i++){
+            this.pecasBrancas[i] = new Peao("white");
+        }
+        this.pecasPretas = new Peao[16];
+        for(int i = 0; i < 8; i++){
+            this.pecasPretas[i] = new Peao("black");
+        }
+
+        for(int i = 1; i < 9; i++){ //coloca as peças
+            String coluna = Casa.letrasColuna.charAt(i-1)+"";
+            tabuleiro.colocarPeca(2+"", coluna, pecasBrancas[i-1]);
+            tabuleiro.colocarPeca(7+"", coluna, pecasPretas[i-1]);
+        }
+
     }
 
     public void iniciarJogo(){
@@ -30,8 +49,9 @@ public class Jogo {
         while (true){ // só acaba quando alguem ganha, ou encerra o jogo
             if(turno%2==0){ //vez do jog1
                 System.out.println("Turno do jogador 1: "+jogador1.getNome());
-                imprimirTabuleiro();
+
                 do {
+                    imprimirTabuleiro();
                     String Stringjogada = jogador1.informaJogada();
                     if (Stringjogada.length() >= 4) { //verifica o tamanho da string e analisa cada caractere
                         colunaO = Stringjogada.substring(0, 1); //coluna da casa de origem
@@ -49,12 +69,12 @@ public class Jogo {
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador1)); //enquanto a jogada não for válida, pede uma nova jogada
                 realizarJogada(linhaO,colunaO,linhaD,colunaD,jogador1);
 
-                System.out.println("peças capturadas: "+jogador1.pecasCapturadas());
             }
             else { //vez do jog2
                 System.out.println("Turno do jogador 2: " + jogador2.getNome());
-                imprimirTabuleiro();
+
                 do {
+                    imprimirTabuleiro();
                     String Stringjogada = jogador2.informaJogada();
                     if (Stringjogada.length() >= 4) {
                         colunaO = Stringjogada.substring(0, 1);
@@ -73,7 +93,6 @@ public class Jogo {
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador2));
                 realizarJogada(linhaO,colunaO,linhaD,colunaD,jogador2);
 
-                System.out.println("peças capturadas: " + jogador2.pecasCapturadas());
             }
 
             //incrementa o turno
@@ -84,31 +103,17 @@ public class Jogo {
 
     public boolean jogadaValida(String linhaO, String colunaO, String linhaD, String colunaD, Jogador jogador){
         // ve se a jogada é valida, se for, retorna true, se não, retorna false
-        if(colunaO.charAt(0)>='a' && colunaO.charAt(0)<='h' && colunaD.charAt(0)>='a' && colunaD.charAt(0)<='h' && linhaO.charAt(0)>='1' && linhaO.charAt(0)<='8' && linhaD.charAt(0)>='1' && linhaD.charAt(0)<='8'){
-            Peao peca = tabuleiro.getPeca(linhaO,colunaO);
-            if(peca == null){ // se não tiver peça na casa de origem
-                System.out.printf("Nao existe peca na casa inicial");
+        if(tabuleiro.noLimite(linhaO,colunaO) && tabuleiro.noLimite(linhaD,colunaD)){ //se as casas estiverem dentro do tabuleiro
+
+            Jogada jogada = new Jogada(linhaO,colunaO,linhaD,colunaD, tabuleiro, jogador);
+            if(!jogada.ehValida()){ // se a jogada não for valida
                 return false;
             }
-            if(!peca.getCor().equals(jogador.cor)){// se a peça não for da cor do jogador
-                System.out.printf("Movimento invalido, o jogador %s nao pode mexer as pecas de outra cor\n", jogador.cor);
-                return false;
-            }
-            boolean destinoOcupado = (tabuleiro.getPeca(linhaD, colunaD) != null);// se tiver peça na casa de destino
-            if(!peca.movimentoValido(linhaO,colunaO,linhaD,colunaD, destinoOcupado)){ // se o movimento não for valido
-                System.out.printf("Movimento invalido, o %s nao mexe assim\n", peca.getSimbolo());
-                return false;
-            }
-            String caminho = peca.caminho(linhaO,colunaO,linhaD,colunaD);
-            Jogada novaJogada = new Jogada(linhaO,colunaO,linhaD,colunaD);
-            if(!novaJogada.ehValida(caminho,tabuleiro)) { // se a jogada não for valida
-                System.out.println("Movimento invalido, o peao nao mexe assim");
-                return false;
-            }
+
             return true;
         }
-        else{
-            System.out.println("jogada invalida");
+        else{ // Se a casa estiver fora do tabuleiro
+            System.out.println("jogada invalida, movimento fora do tabuleiro");
             return false;
         }
     }
@@ -120,7 +125,7 @@ public class Jogo {
             Peao pecaCapturada= tabuleiro.colocarPeca(linhaD,colunaD,pecaRemovida); //coloca a peça na casa de destino
 
             if(pecaCapturada!=null){ //se tiver peça na casa de destino, captura a peça
-                jogador.capturaPeca(pecaCapturada.getSimbolo());
+                jogador.capturaPeca(pecaCapturada.desenho());
             }
 
 
@@ -128,8 +133,12 @@ public class Jogo {
     }
 
     public void imprimirTabuleiro(){
-        System.out.println("Tabuleiro: \n");
+        System.out.println("Jogador 1: " + jogador1.getNome());
+        System.out.print(jogador1.pecasCapturadas());
+        System.out.println("Tabuleiro: ");
         tabuleiro.imprimirTabuleiro();
+        System.out.println("Jogador 2: " + jogador2.getNome());
+        System.out.println(jogador2.pecasCapturadas());
     }
 
 

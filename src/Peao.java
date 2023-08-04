@@ -1,11 +1,9 @@
 public class Peao {
     private String cor;
     private String simbolo;
-    private Casa casa;
 
-    public Peao(String cor, Casa casa) {
+    public Peao(String cor) {
         this.cor = cor;
-        this.casa = casa;
         if (cor.equals("white")) {
             this.simbolo = "♟";
         } else {
@@ -13,7 +11,7 @@ public class Peao {
         }
     }
 
-    public boolean movimentoValido(String linhaO, String colunaO, String linhaD, String colunaD, boolean destinoOcupado){
+    public boolean movimentoValido(String linhaO, String colunaO, String linhaD, String colunaD){
 
         int linhaOrigem = Integer.parseInt(linhaO); //transforma a string em int
         int colunaOrigem = Casa.tranformaColunaNumero(colunaO);//transforma a string em int
@@ -23,17 +21,17 @@ public class Peao {
         if(this.cor.equals("white")){
             if(linhaOrigem == 2){//primeiro movimento
                 if(linhaDestino == linhaOrigem + 1 || linhaDestino == linhaOrigem + 2){//movimento de 1 ou 2 casas
-                    if(colunaDestino == colunaOrigem && !destinoOcupado){//movimento reto
+                    if(colunaDestino == colunaOrigem){//movimento reto
                         return true;
                     }
                 }
             }
             else{
                 if(linhaDestino == linhaOrigem + 1){//movimento que não seja o primeiro
-                    if(colunaDestino == colunaOrigem && !destinoOcupado){//movimento reto
+                    if(colunaDestino == colunaOrigem ){//movimento reto
                         return true;
                     }
-                    else if((colunaDestino - 1 == colunaOrigem || colunaDestino + 1 == colunaOrigem) && destinoOcupado){//vai capturar
+                    else if((colunaDestino - 1 == colunaOrigem || colunaDestino + 1 == colunaOrigem) ){//vai capturar
                         return true;
                     }
                 }
@@ -43,17 +41,17 @@ public class Peao {
         else{  //preto
             if(linhaOrigem == 7){
                 if(linhaDestino == linhaOrigem - 1 || linhaDestino == linhaOrigem - 2){
-                    if(colunaDestino == colunaOrigem && !destinoOcupado){
+                    if(colunaDestino == colunaOrigem ){
                         return true;
                     }
                 }
             }
             else{
                 if(linhaDestino == linhaOrigem - 1){
-                    System.out.println(destinoOcupado);
-                    if(colunaDestino == colunaOrigem && !destinoOcupado){
+
+                    if(colunaDestino == colunaOrigem ){
                         return true;
-                    }else if((colunaDestino - 1 == colunaOrigem || colunaDestino + 1 == colunaOrigem) && destinoOcupado){
+                    }else if((colunaDestino - 1 == colunaOrigem || colunaDestino + 1 == colunaOrigem) ){
                         return true;
                         }
                     }
@@ -67,7 +65,6 @@ public class Peao {
 
     public String caminho(String linhaO,String colunaO,String linhaD,String colunaD){//retorna o caminho que a peça vai fazer
 
-        Caminho caminho = new Caminho(linhaO,colunaO,linhaD,colunaD);
         int linhaOrigem = Integer.parseInt(linhaO);
         int colunaOrigem = Casa.tranformaColunaNumero(colunaO);
         int linhaDestino = Integer.parseInt(linhaD);
@@ -79,24 +76,17 @@ public class Peao {
         }
         else {
             for(int i = linhaOrigem; i <= linhaDestino; i++){
-                caminhoFinal += i + colunaOrigem;
+                caminhoFinal +=  colunaO + i;
             }
         }
+        System.out.println(caminhoFinal);
         return caminhoFinal;
     }
 
-    public String getSimbolo() {
+    public String desenho() {
         return simbolo;
     }
     public String getCor() {
         return cor;
-    }
-
-    public Casa getCasa() {
-        return casa;
-    }
-
-    public void setCasa(Casa casa) {
-        this.casa = casa;
     }
 }

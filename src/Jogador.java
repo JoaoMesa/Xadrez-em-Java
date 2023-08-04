@@ -26,7 +26,7 @@ public class Jogador {
     }
 
     public String pecasCapturadas(){
-        System.out.println("Peças capturadas: \n");
+        System.out.println("Peças capturadas: ");
         return peçasCapturadas; //retorna as peças capturadas
     }
 
