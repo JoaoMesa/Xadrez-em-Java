@@ -2,7 +2,7 @@ import java.lang.String;
 public class Casa {
     private String cor;
     private String linha, coluna;
-    private Peao peca;
+    private Peca peca;
     static final String letrasColuna = "abcdefgh";
 
     public Casa(String cor, String linha, String coluna) {
@@ -30,11 +30,11 @@ public class Casa {
         return coluna;
     }
 
-    public Peao getPeca() {
+    public Peca getPeca() {
         return peca;
     }
 
-    public void colocaPeca(Peao peca) {
+    public void colocaPeca(Peca peca) {
         this.peca = peca;
     }
 

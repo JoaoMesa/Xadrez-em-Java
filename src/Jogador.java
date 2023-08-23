@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Jogador {
     private String nome;
-    public Peao peças[]; //cada jogador tem 16 pecas
+    public Peca peças[]; //cada jogador tem 16 pecas
 
     public String peçasCapturadas;
 
@@ -12,7 +12,7 @@ public class Jogador {
     public Jogador(String nome) { //construtor
 
         this.nome = nome;
-        this.peças = new Peao[16];
+        this.peças = new Peca[16];
         peçasCapturadas = "";
     }
 

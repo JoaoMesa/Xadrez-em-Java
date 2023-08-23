@@ -19,7 +19,7 @@ public class Jogada {
     }
 
     public boolean ehValida(){
-        Peao peca = tabuleiro.getPeca(linhaO,colunaO);
+        Peca peca = tabuleiro.getPeca(linhaO,colunaO);
         if(peca == null){ // se não tiver peça na casa de origem
             System.out.printf("Nao existe peca na casa inicial");
             return false;
@@ -29,24 +29,35 @@ public class Jogada {
             return false;
         }
 
-        Peao pecaDestino = tabuleiro.getPeca(linhaD,colunaD);
+        Peca pecaDestino = tabuleiro.getPeca(linhaD,colunaD);
         boolean destinoOcupadoPeloInimigo = (pecaDestino != null && !pecaDestino.getCor().equals(jogador.getCor()));// se tiver peça adiversaria na casa de destino
         if(!peca.movimentoValido(linhaO,colunaO,linhaD,colunaD)){ // se o movimento não for valido
             System.out.printf("Movimento invalido, o %s nao mexe assim\n", peca.desenho());
             return false;
         }
-        //peao
-        if( !colunaO.equals(colunaD) && destinoOcupadoPeloInimigo == false){//tem que ver se eh peao depois
-            System.out.printf("Movimento invalido, o %s nao mexe assim\n", peca.desenho());
-            return false;
-        }else if(!colunaO.equals(colunaD) && destinoOcupadoPeloInimigo == true){
-            return true;
-        }else if(colunaO.equals(colunaD) && tabuleiro.getPeca(linhaD,colunaD) != null){
-            System.out.printf("Movimento invalido, tem uma peca no seu destino\n", peca.desenho());
-            return false;
+        //Se for um peao, tem que ver se ele esta tentando comer uma peca
+        if(peca instanceof Peao){
+            if(destinoOcupadoPeloInimigo == false && !colunaO.equals(colunaD)){//se o peao estiver tentando comer uma peca, mas nao tem peca na casa de destino
+                System.out.printf("Movimento invalido, o %s nao mexe assim\n", peca.desenho());
+                return false;
+            }
+            else if(!colunaO.equals(colunaD) && destinoOcupadoPeloInimigo == true){
+                return true;
+            }else if(colunaO.equals(colunaD) && tabuleiro.getPeca(linhaD,colunaD) != null){
+                System.out.printf("Movimento invalido, tem uma peca no seu destino\n", peca.desenho());
+                return false;
+            }
         }
 
-        String stringCaminho = peca.caminho(linhaO,colunaO,linhaD,colunaD);
+        //Se for bispo
+        if(peca instanceof Bispo){
+            if( tabuleiro.getPeca(linhaD,colunaD) != null){
+                System.out.printf("Movimento invalido, tem uma peca no seu destino\n", peca.desenho());
+                return false;
+            }
+        }
+
+        String stringCaminho = peca.caminho(colunaO,linhaO,colunaD,linhaD);
 
 
 

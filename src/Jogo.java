@@ -5,8 +5,8 @@ public class Jogo {
     private String registro;
     private Jogada jogadas[];
 
-    private Peao pecasBrancas[];
-    private Peao pecasPretas[];
+    private Peca pecasBrancas[];
+    private Peca pecasPretas[];
 
 
 
@@ -25,19 +25,39 @@ public class Jogo {
         this.jogador2.cor = "black";
 
 
-        this.pecasBrancas = new Peao[16];
-        for(int i = 0; i < 8; i++){
+        this.pecasBrancas = new Peca[16];
+        this.pecasBrancas[0] = new Torre("white");
+        this.pecasBrancas[1] = new Cavalo("white");
+        this.pecasBrancas[2] = new Bispo("white");
+        this.pecasBrancas[3] = new Dama("white");
+        this.pecasBrancas[4] = new Rei("white");
+        this.pecasBrancas[5] = new Bispo("white");
+        this.pecasBrancas[6] = new Cavalo("white");
+        this.pecasBrancas[7] = new Torre("white");
+
+        for(int i=8; i<16; i++){
             this.pecasBrancas[i] = new Peao("white");
         }
-        this.pecasPretas = new Peao[16];
-        for(int i = 0; i < 8; i++){
+
+        this.pecasPretas = new Peca[16];
+        this.pecasPretas[0] = new Torre("black");
+        this.pecasPretas[1] = new Cavalo("black");
+        this.pecasPretas[2] = new Bispo("black");
+        this.pecasPretas[3] = new Dama("black");
+        this.pecasPretas[4] = new Rei("black");
+        this.pecasPretas[5] = new Bispo("black");
+        this.pecasPretas[6] = new Cavalo("black");
+        this.pecasPretas[7] = new Torre("black");
+
+        for(int i=8; i<16; i++){
             this.pecasPretas[i] = new Peao("black");
         }
 
-        for(int i = 1; i < 9; i++){ //coloca as peças
-            String coluna = Casa.letrasColuna.charAt(i-1)+"";
-            tabuleiro.colocarPeca(2+"", coluna, pecasBrancas[i-1]);
-            tabuleiro.colocarPeca(7+"", coluna, pecasPretas[i-1]);
+        for(int i=0; i<8; i++){
+            this.tabuleiro.colocarPeca("1", Casa.transformNumeroColuna(i+1), this.pecasBrancas[i]);
+            this.tabuleiro.colocarPeca("2", Casa.transformNumeroColuna(i+1), this.pecasBrancas[i+8]);
+            this.tabuleiro.colocarPeca("8", Casa.transformNumeroColuna(i+1), this.pecasPretas[i]);
+            this.tabuleiro.colocarPeca("7", Casa.transformNumeroColuna(i+1), this.pecasPretas[i+8]);
         }
 
     }
@@ -121,8 +141,8 @@ public class Jogo {
     public void realizarJogada(String linhaO, String colunaO, String linhaD, String colunaD, Jogador jogador){
 
 
-            Peao pecaRemovida= tabuleiro.tirarPeca(linhaO,colunaO);//pega a peça da casa de origem
-            Peao pecaCapturada= tabuleiro.colocarPeca(linhaD,colunaD,pecaRemovida); //coloca a peça na casa de destino
+            Peca pecaRemovida= tabuleiro.tirarPeca(linhaO,colunaO);//pega a peça da casa de origem
+            Peca pecaCapturada= tabuleiro.colocarPeca(linhaD,colunaD,pecaRemovida); //coloca a peça na casa de destino
 
             if(pecaCapturada!=null){ //se tiver peça na casa de destino, captura a peça
                 jogador.capturaPeca(pecaCapturada.desenho());

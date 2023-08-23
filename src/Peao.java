@@ -1,6 +1,5 @@
-public class Peao {
-    private String cor;
-    private String simbolo;
+public class Peao extends Peca{
+
 
     public Peao(String cor) {
         this.cor = cor;
@@ -63,7 +62,7 @@ public class Peao {
 
     }
 
-    public String caminho(String linhaO,String colunaO,String linhaD,String colunaD){//retorna o caminho que a peça vai fazer
+    public String caminho(String colunaO,String linhaO,String colunaD,String linhaD){//retorna o caminho que a peça vai fazer
 
         int linhaOrigem = Integer.parseInt(linhaO);
         int colunaOrigem = Casa.tranformaColunaNumero(colunaO);
@@ -72,7 +71,7 @@ public class Peao {
         String caminhoFinal = "";
 
         if (colunaDestino!=colunaOrigem){
-            return linhaO + colunaO+ linhaD + colunaD;
+            return colunaO+linhaO+colunaD+linhaD;
         }
         else {
             for(int i = linhaOrigem; i <= linhaDestino; i++){
@@ -83,10 +82,5 @@ public class Peao {
         return caminhoFinal;
     }
 
-    public String desenho() {
-        return simbolo;
-    }
-    public String getCor() {
-        return cor;
-    }
+
 }

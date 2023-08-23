@@ -37,36 +37,36 @@ public class Tabuleiro {
 
     }
 
-    public Peao getPeca(String linha, String coluna){
+    public Peca getPeca(String linha, String coluna){
         Integer linha2,coluna2;
         linha2 = Integer.parseInt(linha);//transforma a string em int
         coluna2=Casa.tranformaColunaNumero(coluna); //transforma a string em int
 
         if (tabuleiro[linha2][coluna2].temPeca()){
-            Peao peaos= tabuleiro[linha2][coluna2].getPeca();
-            return peaos;
+            Peca pecas= tabuleiro[linha2][coluna2].getPeca();
+            return pecas;
         }
         else {
             return null;
         }
     }
 
-    public Peao tirarPeca(String linha, String coluna){
+    public Peca tirarPeca(String linha, String coluna){
         Integer linha2,coluna2;
        linha2 = Integer.parseInt(linha);//transforma a string em int
        coluna2=Casa.tranformaColunaNumero(coluna);////transforma a string em int
 
         if (tabuleiro[linha2][coluna2].temPeca()){
-            Peao peaos= tabuleiro[linha2][coluna2].getPeca();
+            Peca pecas= tabuleiro[linha2][coluna2].getPeca();
             tabuleiro[linha2][coluna2].tiraPeca();
-            return peaos;
+            return pecas;
         }
         else {
             return null;
         }
     }
 
-    public Peao colocarPeca(String linha, String coluna, Peao peca){
+    public Peca colocarPeca(String linha, String coluna, Peca peca){
         int linha2,coluna2;
         linha2 = Integer.parseInt(linha);
         coluna2=Casa.tranformaColunaNumero(coluna);
@@ -76,7 +76,7 @@ public class Tabuleiro {
             return null;
         }
         else { //se tiver peça na casa, vai capturar a peça
-            Peao pecaCapturada = tabuleiro[linha2][coluna2].getPeca();
+            Peca pecaCapturada = tabuleiro[linha2][coluna2].getPeca();
             tabuleiro[linha2][coluna2].tiraPeca();
             tabuleiro[linha2][coluna2].colocaPeca(peca);
             return pecaCapturada;

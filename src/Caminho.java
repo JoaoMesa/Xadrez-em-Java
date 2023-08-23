@@ -18,11 +18,11 @@ public class Caminho {
     }
 
     public boolean  estaLivre(){
-        Peao peca;
+        Peca peca;
         boolean flag=true;
 
         //verifica se tem peça no caminho do movimento
-        for (int i=1;i <casas.length -1;i++){ //iguinora a casa inicial e final
+        for (int i=1;i <casas.length -1;i++){ //iginora a casa inicial e final
             if (casas[i].temPeca()){
                 flag=false;
             }
