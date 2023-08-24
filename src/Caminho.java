@@ -6,7 +6,6 @@ public class Caminho {
     Caminho (String caminho, Tabuleiro tabuleiro){
         casas = new Casa[caminho.length()/2];
         int j =0;
-        System.out.println(caminho.length());
         for (int i=0;i<caminho.length();i+=2){
             String coluna,linha;
             coluna= String.valueOf(caminho.charAt(i));

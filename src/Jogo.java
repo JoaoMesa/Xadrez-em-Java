@@ -76,7 +76,7 @@ public class Jogo {
                     imprimirTabuleiro();
                     if(turno>1) {
                         if(jogadas[turno-1].ehXeque()){
-                            System.out.println("Xeque! CORREC   \n CORRE \nCORRE XEQUE \nXEQUE");
+                            System.out.println("##### Xeque! ####");
                             flagXeque = true;
                         }
                     }
@@ -94,9 +94,7 @@ public class Jogo {
                         linhaD = "z";
                         colunaD = "0";
                     }
-                    if(!flagXeque){
-                        System.out.println("BIRO BIRO");
-                    }
+
                     if(flagXeque){
                         Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador2);
                         flagXeque = aux.ehXeque();
@@ -120,7 +118,7 @@ public class Jogo {
                     imprimirTabuleiro();
                     if(turno>1) {
                         if(jogadas[turno-1].ehXeque()){
-                            System.out.println("Xeque! CORREC   \n CORRE \nCORRE XEQUE \nXEQUE");
+                            System.out.println("##### Xeque! ####");
                             flagXeque = true;
                         }
                     }
@@ -137,10 +135,6 @@ public class Jogo {
                         colunaO = "0";
                         linhaD = "z";
                         colunaD = "0";
-                    }
-
-                    if(!flagXeque){
-                        System.out.println("BIRO BIRO");
                     }
 
                     if(flagXeque){
@@ -204,7 +198,7 @@ public class Jogo {
         System.out.println("Tabuleiro: ");
         tabuleiro.imprimirTabuleiro();
         System.out.println("Jogador 2: " + jogador2.getNome());
-        System.out.println(jogador2.pecasCapturadas());
+        System.out.print(jogador2.pecasCapturadas());
     }
 
 
