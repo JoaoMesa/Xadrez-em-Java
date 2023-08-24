@@ -74,11 +74,54 @@ public class Peao extends Peca{
             return colunaO+linhaO+colunaD+linhaD;
         }
         else {
-            for(int i = linhaOrigem; i <= linhaDestino; i++){
-                caminhoFinal +=  colunaO + i;
+            if(this.cor.equals("white")){
+                if(linhaOrigem == 2){//primeiro movimento
+                    if(linhaDestino == linhaOrigem + 1 || linhaDestino == linhaOrigem + 2){//movimento de 1 ou 2 casas
+                        if(colunaDestino == colunaOrigem){//movimento reto
+                            for(int i = linhaOrigem; i <= linhaDestino; i++){
+                                caminhoFinal +=  colunaO + i;
+                            }
+                        }
+                    }
+                }
+                else{
+                    if(linhaDestino == linhaOrigem + 1){//movimento que não seja o primeiro
+                        if(colunaDestino == colunaOrigem ){//movimento reto
+                            caminhoFinal +=  colunaO + linhaOrigem;
+                            caminhoFinal +=  colunaD + linhaDestino;
+                        }
+                        else if((colunaDestino - 1 == colunaOrigem || colunaDestino + 1 == colunaOrigem) ){//vai capturar
+                            caminhoFinal +=  colunaO + linhaOrigem;
+                            caminhoFinal +=  colunaD + linhaDestino;
+                        }
+                    }
+                }
+            }
+            //mesma coisa para o preto, mas o tabuleiro é invertido
+            else{  //preto
+                if(linhaOrigem == 7){
+                    if(linhaDestino == linhaOrigem - 1 || linhaDestino == linhaOrigem - 2){
+                        if(colunaDestino == colunaOrigem ){
+                            for(int i = linhaOrigem; i >= linhaDestino; i--){
+                                caminhoFinal +=  colunaO + i;
+                            }
+                        }
+                    }
+                }
+                else{
+                    if(linhaDestino == linhaOrigem - 1){
+
+                        if(colunaDestino == colunaOrigem ){
+                            caminhoFinal +=  colunaO + linhaOrigem;
+                            caminhoFinal +=  colunaD + linhaDestino;
+                        }else if((colunaDestino - 1 == colunaOrigem || colunaDestino + 1 == colunaOrigem) ){
+                            caminhoFinal +=  colunaO + linhaOrigem;
+                            caminhoFinal +=  colunaD + linhaDestino;
+                        }
+                    }
+                }
             }
         }
-        System.out.println(caminhoFinal);
         return caminhoFinal;
     }
 

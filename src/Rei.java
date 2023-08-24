@@ -21,12 +21,12 @@ public class Rei extends Peca{
                     return true;
                 }
             }
-            else if(linhaDestino == linhaOrigem){
+             if(linhaDestino == linhaOrigem){
                 if(colunaDestino == colunaOrigem + 1 || colunaDestino == colunaOrigem - 1){
                     return true;
                 }
             }
-            else if(colunaDestino == colunaOrigem){
+             if(colunaDestino == colunaOrigem){
                 if(linhaDestino == linhaOrigem + 1 || linhaDestino == linhaOrigem - 1){
                     return true;
                 }
@@ -35,9 +35,12 @@ public class Rei extends Peca{
             return false;
 
         }
-
     public String caminho(String colunaO,String linhaO,String colunaD,String linhaD) {//retorna o caminho que a peça vai fazer
 
-        return linhaO+colunaO+linhaD+colunaD;
+        String caminho = "";
+        if(movimentoValido(linhaO,colunaO,linhaD,colunaD)){
+           caminho= colunaO+linhaO+colunaD+linhaD;
+        }
+        return caminho;
     }
 }

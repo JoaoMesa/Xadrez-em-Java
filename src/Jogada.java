@@ -51,7 +51,39 @@ public class Jogada {
 
         //Se for bispo
         if(peca instanceof Bispo){
-            if( tabuleiro.getPeca(linhaD,colunaD) != null){
+            if( tabuleiro.getPeca(linhaD,colunaD) != null && destinoOcupadoPeloInimigo == false){
+                System.out.printf("Movimento invalido, tem uma peca no seu destino\n", peca.desenho());
+                return false;
+            }
+        }
+
+        //Se for cavalo
+        if(peca instanceof Cavalo){
+            if( tabuleiro.getPeca(linhaD,colunaD) != null && destinoOcupadoPeloInimigo == false){
+                System.out.printf("Movimento invalido, tem uma peca no seu destino\n", peca.desenho());
+                return false;
+            }
+        }
+
+        //Se for torre
+        if(peca instanceof Torre){
+            if( tabuleiro.getPeca(linhaD,colunaD) != null && destinoOcupadoPeloInimigo == false){
+                System.out.printf("Movimento invalido, tem uma peca no seu destino\n", peca.desenho());
+                return false;
+            }
+        }
+
+        //Se for rei
+        if(peca instanceof Rei){
+            if( tabuleiro.getPeca(linhaD,colunaD) != null && destinoOcupadoPeloInimigo == false){
+                System.out.printf("Movimento invalido, tem uma peca no seu destino\n", peca.desenho());
+                return false;
+            }
+        }
+
+        //Se for rainha
+        if(peca instanceof Dama){
+            if( tabuleiro.getPeca(linhaD,colunaD) != null && destinoOcupadoPeloInimigo == false){
                 System.out.printf("Movimento invalido, tem uma peca no seu destino\n", peca.desenho());
                 return false;
             }
@@ -59,13 +91,102 @@ public class Jogada {
 
         String stringCaminho = peca.caminho(colunaO,linhaO,colunaD,linhaD);
 
-
-
         this.caminho = new Caminho(stringCaminho, tabuleiro);
 
-        return this.caminho.estaLivre();
+        if(!(peca instanceof Cavalo))
+            return this.caminho.estaLivre();
+        else
+            return true;
 
     }
 
+    public boolean ehXeque(){
+        String posicaoRei = achaRei(jogador.getCor());
 
+        if(posicaoRei == null){
+            return false;
+        }
+
+        String linhaRei = String.valueOf(posicaoRei.charAt(1));
+        String colunaRei = String.valueOf(posicaoRei.charAt(0));
+
+        for (int i=1;i<9;i++){
+            for (char j=97;j<=104;j++){
+                String linha = Integer.toString(i);
+                String coluna = j+"";
+                Casa casa = tabuleiro.getCasa(linha,coluna);
+                if(casa.temPeca()){
+                    Peca peca = casa.getPeca();
+                    String stringCaminho = peca.caminho(coluna,linha,colunaRei,linhaRei);
+                    Caminho caminhoLivreRei = new Caminho(stringCaminho, tabuleiro);
+                    if(peca.getCor() == jogador.getCor()){// se a peça for sua
+                        if(peca.movimentoValido(linha,coluna,linhaRei,colunaRei)){// se a peça puder comer o rei
+                            if(peca instanceof Cavalo){
+                                return true;
+                            }
+                            else {
+                                if(caminhoLivreRei.estaLivre()){
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+
+    public String achaRei(String cor){
+
+        if (cor == "white"){
+
+            for (int i=1;i<9;i++){
+                for (char j=97;j<=104;j++){
+                    String linha=Integer.toString(i);
+                    String coluna=j+"";
+                    Casa casa = tabuleiro.getCasa(linha,coluna);
+                    if(casa.temPeca()){
+                        Peca peca = casa.getPeca();
+                        if(peca.desenho()=="♔"){// achou o rei
+                                return coluna+linha;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            for (int i=1;i<9;i++){
+                for (char j=97;j<=104;j++){
+                    String linha=Integer.toString(i);
+                    String coluna=j+"";
+                    Casa casa = tabuleiro.getCasa(linha,coluna);
+                    if(casa.temPeca()){
+                        Peca peca = casa.getPeca();
+                        if(peca.desenho()=="♚"){// achou o rei
+                                return coluna+linha;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public String getLinhaO() {
+        return linhaO;
+    }
+
+    public String getColunaO() {
+        return colunaO;
+    }
+
+    public String getLinhaD() {
+        return linhaD;
+    }
+
+    public String getColunaD() {
+        return colunaD;
+    }
 }

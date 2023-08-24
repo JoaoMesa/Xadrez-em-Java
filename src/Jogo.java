@@ -7,6 +7,7 @@ public class Jogo {
 
     private Peca pecasBrancas[];
     private Peca pecasPretas[];
+    private int turno=0; //turno é um contador, se for par é a vez do jogador 1, se for impar é a vez do jogador 2
 
 
 
@@ -63,15 +64,22 @@ public class Jogo {
     }
 
     public void iniciarJogo(){
-        int turno=0; //turno é um contador, se for par é a vez do jogador 1, se for impar é a vez do jogador 2
         String linhaO, colunaO, linhaD, colunaD;
+        boolean flagXeque = false;
+        boolean flagMate = false;
         Scanner sc = new Scanner(System.in);
-        while (true){ // só acaba quando alguem ganha, ou encerra o jogo
+        while (!flagMate){ // só acaba quando alguem ganha, ou encerra o jogo
             if(turno%2==0){ //vez do jog1
                 System.out.println("Turno do jogador 1: "+jogador1.getNome());
 
                 do {
                     imprimirTabuleiro();
+                    if(turno>1) {
+                        if(jogadas[turno-1].ehXeque()){
+                            System.out.println("Xeque! CORREC   \n CORRE \nCORRE XEQUE \nXEQUE");
+                            flagXeque = true;
+                        }
+                    }
                     String Stringjogada = jogador1.informaJogada();
                     if (Stringjogada.length() >= 4) { //verifica o tamanho da string e analisa cada caractere
                         colunaO = Stringjogada.substring(0, 1); //coluna da casa de origem
@@ -86,15 +94,36 @@ public class Jogo {
                         linhaD = "z";
                         colunaD = "0";
                     }
+                    if(!flagXeque){
+                        System.out.println("BIRO BIRO");
+                    }
+                    if(flagXeque){
+                        Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador2);
+                        flagXeque = aux.ehXeque();
+                        if(flagXeque){
+                            System.out.println("Xeque-Mate, o vencedor foi: "+ jogador2.getNome() + " jogando de " + jogador2.getCor()+". Parabens!");
+                            flagMate = true;
+                        }
+                        else{
+                            System.out.println("Saiu do xeque! Parabens");
+                            flagXeque = false;
+                        }
+                    }
+
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador1)); //enquanto a jogada não for válida, pede uma nova jogada
                 realizarJogada(linhaO,colunaO,linhaD,colunaD,jogador1);
 
             }
             else { //vez do jog2
                 System.out.println("Turno do jogador 2: " + jogador2.getNome());
-
                 do {
                     imprimirTabuleiro();
+                    if(turno>1) {
+                        if(jogadas[turno-1].ehXeque()){
+                            System.out.println("Xeque! CORREC   \n CORRE \nCORRE XEQUE \nXEQUE");
+                            flagXeque = true;
+                        }
+                    }
                     String Stringjogada = jogador2.informaJogada();
                     if (Stringjogada.length() >= 4) {
                         colunaO = Stringjogada.substring(0, 1);
@@ -110,7 +139,25 @@ public class Jogo {
                         colunaD = "0";
                     }
 
+                    if(!flagXeque){
+                        System.out.println("BIRO BIRO");
+                    }
+
+                    if(flagXeque){
+                        Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador1);
+                        flagXeque = aux.ehXeque();
+                        if(flagXeque){
+                            System.out.println("Xeque-Mate, o vencedor foi: "+jogador1.getNome() + " jogando de " + jogador1.getCor()+". Parabens!");
+                            flagMate = true;
+                        }
+                        else{
+                            System.out.println("Saiu do xeque! Parabens");
+                            flagXeque = false;
+                        }
+                    }
+
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador2));
+
                 realizarJogada(linhaO,colunaO,linhaD,colunaD,jogador2);
 
             }
@@ -147,8 +194,7 @@ public class Jogo {
             if(pecaCapturada!=null){ //se tiver peça na casa de destino, captura a peça
                 jogador.capturaPeca(pecaCapturada.desenho());
             }
-
-
+            jogadas[turno]= new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador); //adiciona a jogada no vetor de jogadas
 
     }
 

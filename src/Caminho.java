@@ -8,7 +8,6 @@ public class Caminho {
         int j =0;
         System.out.println(caminho.length());
         for (int i=0;i<caminho.length();i+=2){
-            System.out.println(i);
             String coluna,linha;
             coluna= String.valueOf(caminho.charAt(i));
             linha= String.valueOf(caminho.charAt(i+1));
@@ -32,9 +31,9 @@ public class Caminho {
 
     public Casa casaInicial(){
         return casas[0];
-    }
+    }//TODO
 
     public Casa casaFinal(){
         return casas[casas.length -1];
-    }
+    }//TODO
 }

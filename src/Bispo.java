@@ -27,7 +27,28 @@ public class Bispo extends Peca{
 
     public String caminho(String colunaO,String linhaO,String colunaD,String linhaD) {//retorna o caminho que a peça vai fazer
 
-        return colunaO+linhaO+colunaD+linhaD;
+        int colunaOrigem = (int)colunaO.charAt(0)-96;
+        int linhaOrigem = Integer.parseInt(linhaO);
+        int colunaDestino = (int)colunaD.charAt(0)-96;
+        int linhaDestino = Integer.parseInt(linhaD);
+        String caminho = "";
+        if(movimentoValido(linhaO,colunaO,linhaD,colunaD)){
+            while(colunaOrigem!=colunaDestino && linhaOrigem!=linhaDestino){
+                caminho += (char)(colunaOrigem+96)+""+linhaOrigem;
+                if(colunaOrigem<colunaDestino){
+                    colunaOrigem++;
+                }else{
+                    colunaOrigem--;
+                }
+                if(linhaOrigem<linhaDestino){
+                    linhaOrigem++;
+                }else{
+                    linhaOrigem--;
+                }
+            }
+            caminho += (char)(colunaDestino+96)+""+linhaDestino;
+        }
+        return caminho;
     }
 
 

@@ -34,8 +34,29 @@ public class Cavalo extends Peca{
 
     }
 
-    public String caminho(String colunaO,String linhaO,String colunaD,String linhaD) {//retorna o caminho que a peça vai fazer
+    public String caminho(String colunaO,String linhaO,String colunaD,String linhaD) {//retorna o caminho que a peça vai fazer//TODO: TESTAR,erro
 
-        return colunaO+linhaO+colunaD+linhaD;
+        int colunaOrigem = (int) colunaO.charAt(0) - 96;
+        int linhaOrigem = Integer.parseInt(linhaO);
+        int colunaDestino = (int) colunaD.charAt(0) - 96;
+        int linhaDestino = Integer.parseInt(linhaD);
+        String caminho = "";
+        if (movimentoValido(linhaO, colunaO, linhaD, colunaD)) {
+            caminho += (char) (colunaOrigem + 96) + "" + linhaOrigem;
+            while (colunaOrigem != colunaDestino || linhaOrigem != linhaDestino) {
+                if (colunaOrigem < colunaDestino) {
+                    colunaOrigem++;
+                } else if (colunaOrigem > colunaDestino) {
+                    colunaOrigem--;
+                }
+                if (linhaOrigem < linhaDestino) {
+                    linhaOrigem++;
+                } else if (linhaOrigem > linhaDestino) {
+                    linhaOrigem--;
+                }
+                caminho += (char) (colunaOrigem + 96) + "" + linhaOrigem;
+            }
+        }
+        return caminho;
     }
 }
