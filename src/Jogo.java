@@ -97,8 +97,10 @@ public class Jogo {
                         colunaD = "0";
                     }
 
-                    Jogada cravadaAux = new Jogada(tabuleiro, jogador2);
-                    flagCravada = cravadaAux.estaCravado(linhaO, colunaO);
+                    if(!flagXeque){
+                        Jogada cravadaAux = new Jogada(tabuleiro, jogador1);
+                        flagCravada = cravadaAux.estaCravado(linhaO, colunaO);
+                    }
                     if(flagCravada){
                         System.out.println("Sua peça está cravada! Faça outra jogada");
                         linhaO = "0"; //coloca valores inválidos para o programa não aceitar a jogada
@@ -148,9 +150,10 @@ public class Jogo {
                         linhaD = "z";
                         colunaD = "0";
                     }
-
-                    Jogada cravadaAux = new Jogada(tabuleiro, jogador1);
-                    flagCravada = cravadaAux.estaCravado(linhaO, colunaO);
+                    if(!flagXeque){
+                        Jogada cravadaAux = new Jogada(tabuleiro, jogador1);
+                        flagCravada = cravadaAux.estaCravado(linhaO, colunaO);
+                    }
                     if(flagCravada){
                         System.out.println("Sua peça está cravada! Faça outra jogada");
                         linhaO = "0"; //coloca valores inválidos para o programa não aceitar a jogada
@@ -174,9 +177,6 @@ public class Jogo {
                         flagXeque = false;
                     }
                 }
-
-
-
             }
 
             //incrementa o turno
@@ -197,7 +197,11 @@ public class Jogo {
                 }
 
                 return true;
-            } else { // Se a casa estiver fora do tabuleiro
+            }
+            else if (linhaO=="0" && colunaO=="a"){
+                return false;
+            }
+            else { // Se a casa estiver fora do tabuleiro
                 System.out.println("jogada invalida, movimento fora do tabuleiro");
                 return false;
             }
