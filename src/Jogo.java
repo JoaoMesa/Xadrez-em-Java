@@ -67,6 +67,7 @@ public class Jogo {
         String linhaO, colunaO, linhaD, colunaD;
         boolean flagXeque = false;
         boolean flagMate = false;
+        boolean flagCravada = false;
         Scanner sc = new Scanner(System.in);
         while (!flagMate){ // só acaba quando alguem ganha, ou encerra o jogo
             if(turno%2==0){ //vez do jog1
@@ -80,6 +81,7 @@ public class Jogo {
                             flagXeque = true;
                         }
                     }
+                    flagCravada = false;
                     String Stringjogada = jogador1.informaJogada();
                     if (Stringjogada.length() >= 4) { //verifica o tamanho da string e analisa cada caractere
                         colunaO = Stringjogada.substring(0, 1); //coluna da casa de origem
@@ -93,6 +95,14 @@ public class Jogo {
                         colunaO = "0";
                         linhaD = "z";
                         colunaD = "0";
+                    }
+
+                    Jogada cravadaAux = new Jogada(tabuleiro, jogador2);
+                    flagCravada = cravadaAux.estaCravado(linhaO, colunaO);
+                    if(flagCravada){
+                        System.out.println("Sua peça está cravada! Faça outra jogada");
+                        linhaO = "0"; //coloca valores inválidos para o programa não aceitar a jogada
+                        colunaO = "a";
                     }
 
 
@@ -123,6 +133,7 @@ public class Jogo {
                             flagXeque = true;
                         }
                     }
+                    flagCravada = false;
                     String Stringjogada = jogador2.informaJogada();
                     if (Stringjogada.length() >= 4) {
                         colunaO = Stringjogada.substring(0, 1);
@@ -137,6 +148,16 @@ public class Jogo {
                         linhaD = "z";
                         colunaD = "0";
                     }
+
+                    Jogada cravadaAux = new Jogada(tabuleiro, jogador1);
+                    flagCravada = cravadaAux.estaCravado(linhaO, colunaO);
+                    if(flagCravada){
+                        System.out.println("Sua peça está cravada! Faça outra jogada");
+                        linhaO = "0"; //coloca valores inválidos para o programa não aceitar a jogada
+                        colunaO = "a";
+                    }
+
+
 
 
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador2));
