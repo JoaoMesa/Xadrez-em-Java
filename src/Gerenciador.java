@@ -20,8 +20,8 @@ public class Gerenciador {
             escolha = sc.nextInt();
 
             if(escolha == 1){
-                jogo[0] = new Jogo();
-                jogo[0].iniciarJogo();
+                jogo[nJogos] = new Jogo();
+                jogo[nJogos].iniciarJogo();
                 System.out.println("O jogo acabou, parabens ao vencedor!");
                 nJogos ++;
                 
@@ -53,6 +53,8 @@ public class Gerenciador {
                 }
             }
             if(escolha == 3){
+                jogo[nJogos] = new Jogo();
+                int contaJogador = 1;
                 System.out.println("De qual arquivo pegar as jogadas?");
                 String nome = sc.next();
                 System.out.println(nome);
@@ -62,11 +64,22 @@ public class Gerenciador {
                 String line;
                 int lineCount = 0;
                 while ((line = bufferedReader.readLine()) != null) {
-                lineCount++;
-                if (lineCount >= 3) {
-                    // Processar cada linha a partir da terceira linha do arquivo como uma jogada de xadrez
-                    System.out.println("Processando jogada: " + line);
-                }
+                    String linhaO = line.substring(1, 2); // Primeiro caractere (linha origem)
+                    String colunaO = line.substring(0, 1); // Segundo caractere (coluna origem)
+                    String linhaD = line.substring(3, 4); // Terceiro caractere (linha destino)
+                    String colunaD = line.substring(2, 3); // Quarto caractere (coluna destino)
+                    lineCount++;
+                    if (lineCount >= 3) {
+                        jogo[nJogos].realizarJogada(linhaO, colunaO, linhaD, colunaD, jogo[nJogos].escolheJogador(contaJogador));
+                
+                        if(contaJogador == 1){
+                            contaJogador = 2;
+                        }
+                        else{
+                            contaJogador = 1;
+                            
+                        }
+                    }
             }
 
             bufferedReader.close();
@@ -74,6 +87,10 @@ public class Gerenciador {
             System.out.println("Ocorreu um erro ao ler o arquivo.");
             e.printStackTrace();
         }
+        
+                jogo[nJogos].iniciarJogo();
+                System.out.println("O jogo acabou, parabens ao vencedor!");
+                nJogos ++;
             }
             if(escolha == 4){
                 System.out.println("Fechando o jogo! Muito obrigado!");
