@@ -67,6 +67,7 @@ public class Jogo {
         String linhaO, colunaO, linhaD, colunaD;
         boolean flagXeque = false;
         boolean flagMate = false;
+        boolean flagCravada = false;
         Scanner sc = new Scanner(System.in);
         while (!flagMate){ // só acaba quando alguem ganha, ou encerra o jogo
             if(turno%2==0){ //vez do jog1
@@ -80,6 +81,7 @@ public class Jogo {
                             flagXeque = true;
                         }
                     }
+                    flagCravada = false;
                     String Stringjogada = jogador1.informaJogada();
                     if (Stringjogada.length() >= 4) { //verifica o tamanho da string e analisa cada caractere
                         colunaO = Stringjogada.substring(0, 1); //coluna da casa de origem
@@ -107,6 +109,15 @@ public class Jogo {
                             flagXeque = false;
                         }
                     }
+                    
+                    Jogada cravadaAux = new Jogada(tabuleiro, jogador2);
+                    flagCravada = cravadaAux.estaCravado(linhaO, colunaO);
+                    if(flagCravada){
+                        System.out.println("Sua peça está cravada! Faça outra jogada");
+                        linhaO = "0"; //coloca valores inválidos para o programa não aceitar a jogada
+                        colunaO = "a";
+                    }
+                    
 
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador1)); //enquanto a jogada não for válida, pede uma nova jogada
                 realizarJogada(linhaO,colunaO,linhaD,colunaD,jogador1);
@@ -122,6 +133,7 @@ public class Jogo {
                             flagXeque = true;
                         }
                     }
+                    flagCravada = false;
                     String Stringjogada = jogador2.informaJogada();
                     if (Stringjogada.length() >= 4) {
                         colunaO = Stringjogada.substring(0, 1);
@@ -131,7 +143,7 @@ public class Jogo {
                     }
                     else{
                         System.out.println("Jogada inválida, tente novamente");
-                        linhaO = "z";
+                        linhaO = "z"; //coloca valores inválidos para o programa não aceitar a jogada
                         colunaO = "0";
                         linhaD = "z";
                         colunaD = "0";
@@ -148,6 +160,14 @@ public class Jogo {
                             System.out.println("Saiu do xeque! Parabens");
                             flagXeque = false;
                         }
+                    }
+                    
+                    Jogada cravadaAux = new Jogada(tabuleiro, jogador1);
+                    flagCravada = cravadaAux.estaCravado(linhaO, colunaO);
+                    if(flagCravada){
+                        System.out.println("Sua peça está cravada! Faça outra jogada");
+                        linhaO = "0"; //coloca valores inválidos para o programa não aceitar a jogada
+                        colunaO = "a";
                     }
 
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador2));
@@ -174,13 +194,12 @@ public class Jogo {
             return true;
         }
         else{ // Se a casa estiver fora do tabuleiro
-            System.out.println("jogada invalida, movimento fora do tabuleiro");
+            System.out.println("Jogada inválida.");
             return false;
         }
     }
 
     public void realizarJogada(String linhaO, String colunaO, String linhaD, String colunaD, Jogador jogador){
-
 
             Peca pecaRemovida= tabuleiro.tirarPeca(linhaO,colunaO);//pega a peça da casa de origem
             Peca pecaCapturada= tabuleiro.colocarPeca(linhaD,colunaD,pecaRemovida); //coloca a peça na casa de destino

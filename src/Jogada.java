@@ -17,6 +17,11 @@ public class Jogada {
         this.colunaD = colunaD;
         this.jogador = jogador;
     }
+    
+    public Jogada(Tabuleiro tabuleiro, Jogador jogador) {
+        this.tabuleiro = tabuleiro;
+        this.jogador = jogador;
+    }
 
     public boolean ehValida(){
         Peca peca = tabuleiro.getPeca(linhaO,colunaO);
@@ -121,6 +126,52 @@ public class Jogada {
                     Caminho caminhoLivreRei = new Caminho(stringCaminho, tabuleiro);
                     if(peca.getCor() == jogador.getCor()){// se a peça for sua
                         if(peca.movimentoValido(linha,coluna,linhaRei,colunaRei)){// se a peça puder comer o rei
+                            if(peca instanceof Cavalo){
+                                return true;
+                            }
+                            else {
+                                if(caminhoLivreRei.estaLivre()){
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+    
+    public boolean estaCravado(String linhaP, String colunaP){
+        String posicaoRei = achaRei(jogador.getCor());
+
+        if(posicaoRei == null){
+            return false;
+        }
+        
+        String pecaMovida = colunaP + linhaP;
+
+        String linhaRei = String.valueOf(posicaoRei.charAt(1));
+        String colunaRei = String.valueOf(posicaoRei.charAt(0));
+
+        for (int i=1;i<9;i++){
+            for (char j=97;j<=104;j++){
+                String linha = Integer.toString(i);
+                String coluna = j+"";
+                Casa casa = tabuleiro.getCasa(linha,coluna);
+                if(casa.temPeca()){
+                    Peca peca = casa.getPeca();
+                    String stringCaminho = peca.caminho(coluna,linha,colunaRei,linhaRei);
+                    if(peca.getCor() == jogador.getCor()){// se a peça for sua
+                        if(peca.movimentoValido(linha,coluna,linhaRei,colunaRei)){// se a peça puder comer o rei
+                            for(int k = 0; k<stringCaminho.length();k+=2){
+                                String casaLivreAgora = stringCaminho.charAt(k) + "" + stringCaminho.charAt(k+1);
+                                if (pecaMovida.equals(casaLivreAgora)){
+                                    stringCaminho = stringCaminho.substring(0, k) + stringCaminho.substring(k+2);
+                                }
+                            }
+                            Caminho caminhoLivreRei = new Caminho(stringCaminho, tabuleiro);
                             if(peca instanceof Cavalo){
                                 return true;
                             }
