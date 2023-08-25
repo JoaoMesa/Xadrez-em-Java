@@ -9,6 +9,7 @@ public class Bispo extends Peca{
         }
     }
 
+    @Override
     public boolean movimentoValido(String linhaO, String colunaO, String linhaD, String colunaD){
 
         int linhaOrigem = Integer.parseInt(linhaO); //transforma a string em int
@@ -25,6 +26,7 @@ public class Bispo extends Peca{
 
     }
 
+    @Override
     public String caminho(String colunaO,String linhaO,String colunaD,String linhaD) {//retorna o caminho que a peça vai fazer
 
         int colunaOrigem = (int)colunaO.charAt(0)-96;

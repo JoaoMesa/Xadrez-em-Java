@@ -30,9 +30,9 @@ public class Caminho {
 
     public Casa casaInicial(){
         return casas[0];
-    }//TODO
+    }
 
     public Casa casaFinal(){
         return casas[casas.length -1];
-    }//TODO
+    }
 }
