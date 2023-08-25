@@ -166,16 +166,22 @@ public class Jogo {
 
     public boolean jogadaValida(String linhaO, String colunaO, String linhaD, String colunaD, Jogador jogador){
         // ve se a jogada é valida, se for, retorna true, se não, retorna false
-        if(tabuleiro.noLimite(linhaO,colunaO) && tabuleiro.noLimite(linhaD,colunaD)){ //se as casas estiverem dentro do tabuleiro
+        try {
 
-            Jogada jogada = new Jogada(linhaO,colunaO,linhaD,colunaD, tabuleiro, jogador);
-            if(!jogada.ehValida()){ // se a jogada não for valida
+            if (tabuleiro.noLimite(linhaO, colunaO) && tabuleiro.noLimite(linhaD, colunaD)) { //se as casas estiverem dentro do tabuleiro
+
+                Jogada jogada = new Jogada(linhaO, colunaO, linhaD, colunaD, tabuleiro, jogador);
+                if (!jogada.ehValida()) { // se a jogada não for valida
+                    return false;
+                }
+
+                return true;
+            } else { // Se a casa estiver fora do tabuleiro
+                System.out.println("jogada invalida, movimento fora do tabuleiro");
                 return false;
             }
-
-            return true;
         }
-        else{ // Se a casa estiver fora do tabuleiro
+        catch (Exception e){
             System.out.println("jogada invalida, movimento fora do tabuleiro");
             return false;
         }
