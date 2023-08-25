@@ -95,21 +95,22 @@ public class Jogo {
                         colunaD = "0";
                     }
 
-                    if(flagXeque){
-                        Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador1);
-                        flagXeque = aux.ehXeque();
-                        if(flagXeque){
-                            System.out.println("Xeque-Mate, o vencedor foi: "+ jogador2.getNome() + " jogando de " + jogador2.getCor()+". Parabens!");
-                            flagMate = true;
-                        }
-                        else{
-                            System.out.println("Saiu do xeque! Parabens");
-                            flagXeque = false;
-                        }
-                    }
+
 
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador1)); //enquanto a jogada não for válida, pede uma nova jogada
                 realizarJogada(linhaO,colunaO,linhaD,colunaD,jogador1);
+
+                if(flagXeque){
+                    Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador2);
+                    flagMate = aux.ehXeque();
+                    if(flagMate){
+                        System.out.println("Xeque-Mate, o vencedor foi: "+ jogador2.getNome() + " jogando de " + jogador2.getCor()+". Parabens!");
+                    }
+                    else{
+                        System.out.println("Saiu do xeque! Parabens");
+                        flagXeque = false;
+                    }
+                }
 
             }
             else { //vez do jog2
@@ -117,7 +118,7 @@ public class Jogo {
                 do {
                     imprimirTabuleiro();
                     if(turno>1) {
-                        if(jogadas[turno-1].ehXeque()){
+                        if(jogadas[turno-1].ehXeque()){ //se branca deu xeque
                             System.out.println("##### Xeque! ####");
                             flagXeque = true;
                         }
@@ -137,22 +138,23 @@ public class Jogo {
                         colunaD = "0";
                     }
 
-                    if(flagXeque){
-                        Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador2);
-                        flagXeque = aux.ehXeque();
-                        if(flagXeque){
-                            System.out.println("Xeque-Mate, o vencedor foi: "+jogador1.getNome() + " jogando de " + jogador1.getCor()+". Parabens!");
-                            flagMate = true;
-                        }
-                        else{
-                            System.out.println("Saiu do xeque! Parabens");
-                            flagXeque = false;
-                        }
-                    }
 
                 } while (!jogadaValida(linhaO, colunaO, linhaD, colunaD, jogador2));
 
                 realizarJogada(linhaO,colunaO,linhaD,colunaD,jogador2);
+                if(flagXeque){
+                    Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador1);
+                    flagMate = aux.ehXeque();
+                    if(flagMate){
+                        System.out.println("Xeque-Mate, o vencedor foi: "+jogador1.getNome() + " jogando de " + jogador1.getCor()+". Parabens!");
+                    }
+                    else{
+                        System.out.println("Saiu do xeque! Parabens");
+                        flagXeque = false;
+                    }
+                }
+
+
 
             }
 
