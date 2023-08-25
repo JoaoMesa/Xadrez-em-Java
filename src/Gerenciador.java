@@ -29,9 +29,9 @@ public class Gerenciador {
             if(escolha == 2){
                 int qualJogo = 0;
                 if(nJogos > 0){
-                    System.out.println("Qual jogo deseja carregar?\n");
+                    System.out.println("Qual jogo deseja salvar?\n");
                 for(int i = 0; i < nJogos; i++){
-                    System.out.println("Jogo " + i+1);
+                    System.out.printf("Jogo %d", i+1);
                 }
                 qualJogo = sc.nextInt();
                 String Moves = jogo[qualJogo-1].criaRegistro(); 
