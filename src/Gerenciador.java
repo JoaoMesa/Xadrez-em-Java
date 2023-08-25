@@ -53,9 +53,30 @@ public class Gerenciador {
                 }
             }
             if(escolha == 3){
-                break;
+                System.out.println("De qual arquivo pegar as jogadas?");
+                String nome = sc.next();
+                System.out.println(nome);
+                try {
+                FileReader reader = new FileReader(nome + ".txt");
+                BufferedReader bufferedReader = new BufferedReader(reader);
+                String line;
+                int lineCount = 0;
+                while ((line = bufferedReader.readLine()) != null) {
+                lineCount++;
+                if (lineCount >= 3) {
+                    // Processar cada linha a partir da terceira linha do arquivo como uma jogada de xadrez
+                    System.out.println("Processando jogada: " + line);
+                }
+            }
+
+            bufferedReader.close();
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao ler o arquivo.");
+            e.printStackTrace();
+        }
             }
             if(escolha == 4){
+                System.out.println("Fechando o jogo! Muito obrigado!");
                 break;
             }
         }
