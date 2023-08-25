@@ -96,7 +96,7 @@ public class Jogo {
                     }
 
                     if(flagXeque){
-                        Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador2);
+                        Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador1);
                         flagXeque = aux.ehXeque();
                         if(flagXeque){
                             System.out.println("Xeque-Mate, o vencedor foi: "+ jogador2.getNome() + " jogando de " + jogador2.getCor()+". Parabens!");
@@ -138,7 +138,7 @@ public class Jogo {
                     }
 
                     if(flagXeque){
-                        Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador1);
+                        Jogada aux = new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador2);
                         flagXeque = aux.ehXeque();
                         if(flagXeque){
                             System.out.println("Xeque-Mate, o vencedor foi: "+jogador1.getNome() + " jogando de " + jogador1.getCor()+". Parabens!");
@@ -195,10 +195,10 @@ public class Jogo {
     public void imprimirTabuleiro(){
         System.out.println("Jogador 1: " + jogador1.getNome());
         System.out.print(jogador1.pecasCapturadas());
-        System.out.println("Tabuleiro: ");
+        System.out.println("\n\nTabuleiro: ");
         tabuleiro.imprimirTabuleiro();
-        System.out.println("Jogador 2: " + jogador2.getNome());
-        System.out.print(jogador2.pecasCapturadas());
+        System.out.print("\nJogador 2: " + jogador2.getNome() + "\n");
+        System.out.println(jogador2.pecasCapturadas());
     }
 
 
