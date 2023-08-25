@@ -4,6 +4,7 @@ public class Jogo {
     private Jogador jogador1, jogador2;
     private String registro;
     private Jogada jogadas[];
+    private int contadordejogadas = 0;
 
     private Peca pecasBrancas[];
     private Peca pecasPretas[];
@@ -235,8 +236,8 @@ public class Jogo {
             if(pecaCapturada!=null){ //se tiver peça na casa de destino, captura a peça
                 jogador.capturaPeca(pecaCapturada.desenho());
             }
-            jogadas[turno]= new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador); //adiciona a jogada no vetor de jogadas
-
+            jogadas[contadordejogadas]= new Jogada(linhaO,colunaO,linhaD,colunaD,tabuleiro,jogador); //adiciona a jogada no vetor de jogadas
+            contadordejogadas ++;
     }
 
     public void imprimirTabuleiro(){

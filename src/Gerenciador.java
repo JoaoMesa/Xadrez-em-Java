@@ -70,18 +70,17 @@ public class Gerenciador {
                     String colunaD = line.substring(2, 3); // Quarto caractere (coluna destino)
                     lineCount++;
                     if (lineCount >= 3) {
-                        jogo[nJogos].realizarJogada(linhaO, colunaO, linhaD, colunaD, jogo[nJogos].escolheJogador(contaJogador));
+                    jogo[nJogos].realizarJogada(linhaO, colunaO, linhaD, colunaD, jogo[nJogos].escolheJogador(contaJogador));
                 
-                        if(contaJogador == 1){
-                            contaJogador = 2;
-                        }
-                        else{
-                            contaJogador = 1;
-                            
-                        }
+                    if(contaJogador == 1){
+                        contaJogador = 2;
                     }
+                    else{
+                        contaJogador = 1;
+                            
+                    }
+                }
             }
-
             bufferedReader.close();
         } catch (IOException e) {
             System.out.println("Ocorreu um erro ao ler o arquivo.");
