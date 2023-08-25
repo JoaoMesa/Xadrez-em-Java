@@ -23,15 +23,15 @@ public class Gerenciador {
                 jogo[0] = new Jogo();
                 jogo[0].iniciarJogo();
                 System.out.println("O jogo acabou, parabens ao vencedor!");
-                njogos ++;
+                nJogos ++;
                 
             }
             if(escolha == 2){
                 int qualJogo = 0;
                 if(nJogos > 0){
                     System.out.println("Qual jogo deseja carregar?\n");
-                for(int i = 0; i < njogos; i++){
-                    System.out.println("Jogo " + i);
+                for(int i = 0; i < nJogos; i++){
+                    System.out.println("Jogo " + i+1);
                 }
                 qualJogo = sc.nextInt();
                 String Moves = jogo[qualJogo-1].criaRegistro(); 
