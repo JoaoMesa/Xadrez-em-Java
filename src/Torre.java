@@ -33,7 +33,7 @@ public class Torre extends Peca{
     }
 
     @Override
-    public String caminho(String colunaO,String linhaO,String colunaD,String linhaD) {//retorna o caminho que a peça vai fazer//TODO: TESTAR
+    public String caminho(String colunaO,String linhaO,String colunaD,String linhaD) {//retorna o caminho que a peça vai fazer
 
         int colunaOrigem = (int)colunaO.charAt(0)-96;
         int linhaOrigem = Integer.parseInt(linhaO);
