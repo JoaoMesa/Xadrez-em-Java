@@ -1,7 +1,7 @@
 public class Caminho {
 
-    Casa casas[];
-    Tabuleiro tabuleiro;
+    private Casa casas[];
+    private Tabuleiro tabuleiro;
 
     Caminho (String caminho, Tabuleiro tabuleiro){
         casas = new Casa[caminho.length()/2];

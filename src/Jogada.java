@@ -1,11 +1,11 @@
 import static java.lang.Integer.parseInt;
 
 public class Jogada {
-    String linhaO,colunaO,linhaD,colunaD;
-    Caminho caminho;
-    Tabuleiro tabuleiro;
+    private String linhaO,colunaO,linhaD,colunaD;
+    private Caminho caminho;
+    private Tabuleiro tabuleiro;
 
-    Jogador jogador;
+    private Jogador jogador;
 
 
     public Jogada(String linhaO, String colunaO, String linhaD, String colunaD, Tabuleiro tabuleiro, Jogador jogador) {

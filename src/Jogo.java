@@ -9,7 +9,21 @@ public class Jogo {
     private Peca pecasPretas[];
     private int turno=0; //turno é um contador, se for par é a vez do jogador 1, se for impar é a vez do jogador 2
 
-
+    public String criaRegistro(){
+        registro = "";
+        for(int i = 0; i < turno; i++){
+            registro += jogadas[i].getColunaO() + jogadas[i].getLinhaO() + jogadas[i].getColunaD() + jogadas[i].getLinhaD() + " "; 
+        }
+        return registro;
+    }   
+    
+    public String getNome1(){
+        return jogador1.getNome();
+    }
+    
+    public String getNome2(){
+        return jogador2.getNome();
+    }
 
     public Jogo() {
         jogadas = new Jogada[500];
