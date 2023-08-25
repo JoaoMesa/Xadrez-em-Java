@@ -248,5 +248,13 @@ public class Jogo {
         System.out.println(jogador2.pecasCapturadas());
     }
 
+    public Jogador escolheJogador(int jogador){
+        if(jogador == 1){
+            return jogador1;
+        }
+        else{
+            return jogador2;
+        }
+    }
 
 }
